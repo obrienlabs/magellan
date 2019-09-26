@@ -1,6 +1,6 @@
 #!/bin/bash
 #############################################################################
-# Copyright © 2019 Bell.
+# Copyright © 2019 obrienlabs.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,14 +16,13 @@
 #############################################################################
 #
 # This installation is for an RKE install of kubernetes
-# after this run the standard oom install
 # this installation can be run on any ubuntu 16.04/18.04 VM, RHEL 7.6 (root only), physical or cloud azure/aws host
-# https://wiki.onap.org/display/DW/OOM+RKE+Kubernetes+Deployment
-# source from https://jira.onap.org/browse/OOM-1598
+# http://wiki.obrienlabs.cloud/display/DEV/Kubernetes+Developer+Guide
+# source from https://github.com/obrienlabs/magellan/blob/master/kubernetes/rke_setup.sh
 #
-# master/dublin 
-#     RKE 0.1.16 Kubernetes 1.11.6, kubectl 1.11.6, Helm 2.9.1, Docker 18.06
+#     20190311 RKE 0.1.16 Kubernetes 1.11.6, kubectl 1.11.6, Helm 2.9.1, Docker 18.06
 #     20190428 RKE 0.2.1, Kubernetes 1.13.5, kubectl 1.13.5, Helm 2.12.3, Docker 18.09.5
+#     20190925 RKE 0.2.8, Kubernetes 1.14.6, kubectl 1.14.6, Helm 2.14.3, Docker 19.03.2
 # single node install, HA pending
 
 usage() {
@@ -44,10 +43,10 @@ install_onap() {
   #constants
   PORT=8880
   KUBERNETES_VERSION=
-  RKE_VERSION=0.2.1
-  KUBECTL_VERSION=1.13.5
-  HELM_VERSION=2.12.3
-  DOCKER_VERSION=18.09
+  RKE_VERSION=0.2.8
+  KUBECTL_VERSION=1.14.6
+  HELM_VERSION=2.14.3
+  DOCKER_VERSION=19.03.2
  
   # copy your private ssh key and cluster.yml file to the vm
   # on your dev machine
@@ -71,8 +70,8 @@ install_onap() {
   RKETOOLS=
   HYPERCUBE=
   POD_INFRA_CONTAINER=
-  RKETOOLS=0.1.27
-  HYPERCUBE=1.13.5-rancher1
+  RKETOOLS=0.1.42
+  HYPERCUBE=1.14.6-rancher1
   POD_INFRA_CONTAINER=rancher/pause:3.1
 
   cat > cluster.yml <<EOF
@@ -152,7 +151,7 @@ authentication:
   sans: []
   webhook: null
 system_images:
-  etcd: rancher/coreos-etcd:v3.2.24-rancher1
+  etcd: rancher/coreos-etcd:v3.3.10-rancher1
   alpine: rancher/rke-tools:v$RKETOOLS
   nginx_proxy: rancher/rke-tools:v$RKETOOLS
   cert_downloader: rancher/rke-tools:v$RKETOOLS
@@ -160,7 +159,9 @@ system_images:
   kubedns: rancher/k8s-dns-kube-dns:1.15.0
   dnsmasq: rancher/k8s-dns-dnsmasq-nanny:1.15.0
   kubedns_sidecar: rancher/k8s-dns-sidecar:1.15.0
-  kubedns_autoscaler: rancher/cluster-proportional-autoscaler:1.0.0
+  kubedns_autoscaler: rancher/cluster-proportional-autoscaler:1.3.0
+  coredns: rancher/coredns-coredns:1.3.1
+  coredns_autoscaler: rancher/cluster-proportional-autoscaler:1.3.0
   kubernetes: rancher/hyperkube:v$HYPERCUBE
   flannel: rancher/coreos-flannel:v0.10.0-rancher1
   flannel_cni: rancher/flannel-cni:v0.3.0-rancher1
@@ -175,7 +176,7 @@ system_images:
   weave_cni: weaveworks/weave-npc:2.5.0
   pod_infra_container: $POD_INFRA_CONTAINER
   ingress: rancher/nginx-ingress-controller:0.21.0-rancher3
-  ingress_backend: rancher/nginx-ingress-controller-defaultbackend:1.4-rancher1
+  ingress_backend: rancher/nginx-ingress-controller-defaultbackend:1.5-rancher1
   metrics_server: rancher/metrics-server:v0.3.1
 ssh_key_path: $SSHPATH
 ssh_cert_path: ""
