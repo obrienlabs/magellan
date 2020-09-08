@@ -1,4 +1,4 @@
-package global.packet.magellan;
+package global.packet.magellan.controller;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import global.packet.magellan.service.ApplicationService;
+import global.packet.magellan.service.ApplicationServiceLocal;
+
 //import com.wordnik.swagger.annotations.ApiOperation;
 //import com.wordnik.swagger.annotations.ApiResponse;
 //import com.wordnik.swagger.annotations.ApiResponses;
@@ -21,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ForwardingController {
 	
 	@Autowired
-	ApplicationServiceLocal applicationService;
+	ApplicationService applicationService;
 	
 	//@GET
 	//@Path("/health")
@@ -37,7 +40,7 @@ public class ForwardingController {
 			@ApiResponse(code=409, message="Conflict"),
 			@ApiResponse(code=500, message="Internal Server Error")
 	})*/
-	@GetMapping("/forward")
+	@GetMapping("/health")
 	public String getHealth() {
 		return applicationService.health().toString();
 	}

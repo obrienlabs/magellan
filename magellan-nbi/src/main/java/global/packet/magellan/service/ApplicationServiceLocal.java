@@ -1,4 +1,4 @@
-package global.packet.magellan;
+package global.packet.magellan.service;
 
 public interface ApplicationServiceLocal {
 

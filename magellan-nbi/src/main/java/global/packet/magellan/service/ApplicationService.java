@@ -1,8 +1,9 @@
-package global.packet.magellan;
+package global.packet.magellan.service;
 
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class ApplicationService implements ApplicationServiceLocal {
 
 	@Override
