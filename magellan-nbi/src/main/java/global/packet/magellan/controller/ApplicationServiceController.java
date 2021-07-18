@@ -5,18 +5,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import global.packet.magellan.service.ForwardingService;
+import global.packet.magellan.service.ApplicationService;
 
 //import com.wordnik.swagger.annotations.ApiOperation;
 //import com.wordnik.swagger.annotations.ApiResponse;
 //import com.wordnik.swagger.annotations.ApiResponses;
 
 @RestController
-@RequestMapping("/forward")
-public class ForwardingController {
+@RequestMapping("/app")
+public class ApplicationServiceController {
 	
 	@Autowired
-	ForwardingService forwardingService;
+	ApplicationService applicationService;
 	
 	//@GET
 	//@Path("/health")
@@ -32,9 +32,9 @@ public class ForwardingController {
 			@ApiResponse(code=409, message="Conflict"),
 			@ApiResponse(code=500, message="Internal Server Error")
 	})*/
-	@GetMapping("/packet")
-	public String getPacket() {
-		return forwardingService.forward().toString();
+	@GetMapping("/health")
+	public String getHealth() {
+		return applicationService.health().toString();
 	}
 
 }
