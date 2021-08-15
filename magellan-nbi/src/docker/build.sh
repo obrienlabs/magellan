@@ -19,7 +19,7 @@ docker build --no-cache --build-arg build-id=$BUILD_ID -t obrienlabs/$CONTAINER_
 #docker tag $CONTAINER_IMAGE:latest $CONTAINER_IMAGE:latest
 docker tag obrienlabs/$CONTAINER_IMAGE obrienlabs/$CONTAINER_IMAGE:0.0.2
 # dockerhub
-docker push obrienlabs/$CONTAINER_IMAGE:0.0.2
+#docker push obrienlabs/$CONTAINER_IMAGE:0.0.2
 # locally
 docker stop $CONTAINER_IMAGE
 docker rm $CONTAINER_IMAGE
