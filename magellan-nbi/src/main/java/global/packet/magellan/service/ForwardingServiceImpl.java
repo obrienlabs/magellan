@@ -20,6 +20,7 @@ public class ForwardingServiceImpl implements ForwardingService {
 	private String portTo;
 	private String portFrom;
 	private AtomicLong counter = new AtomicLong(1);
+	private HttpClient httpClient = HttpClient.newBuilder().build();
 
 //  private static final String URL_RETURN = "http://host.docker.internal:8888";
 //  private static final String URL_RETURN = "http://host.docker.internal:";//8080/nbi/forward/packet";
@@ -42,7 +43,7 @@ public class ForwardingServiceImpl implements ForwardingService {
 	}
 
 	private void sendMessage() {
-		HttpClient httpClient = HttpClient.newBuilder().build();
+		
 
 		String url = "http://" +
 				dnsTo + 
