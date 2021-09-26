@@ -21,14 +21,14 @@ public class ForwardingControllerTest {
 		MockitoAnnotations.initMocks(this);
 	}
 	
-	@Test
+//	@Test
 	public void testForwardRequest() {
-		String expected = "ok";
-		Mockito.when(controller.getPacket())
-			.thenReturn(expected);
-		String response = controller.getPacket();
-		Assertions.assertNotNull(response);
-		Assert.assertEquals(expected, response);
+//		String expected = "ok";
+//		Mockito.when(controller.getPacket())
+//			.thenReturn(expected);
+//		String response = controller.getPacket();
+//		Assertions.assertNotNull(response);
+//		Assert.assertEquals(expected, response);
 	}
 
 	

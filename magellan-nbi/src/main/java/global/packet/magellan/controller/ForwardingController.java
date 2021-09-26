@@ -3,6 +3,8 @@ package global.packet.magellan.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import global.packet.magellan.service.ForwardingService;
@@ -33,8 +35,11 @@ public class ForwardingController {
 			@ApiResponse(code=500, message="Internal Server Error")
 	})*/
 	@GetMapping("/packet")
-	public String getPacket() {
-		return forwardingService.forward().toString();
+	@ResponseBody
+	public String getPacket(@RequestParam String from, 
+			@RequestParam String to,
+			@RequestParam String delay) {
+		return forwardingService.forward(from, to, delay).toString();
 	}
 
 }
