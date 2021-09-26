@@ -36,10 +36,13 @@ public class ForwardingController {
 	})*/
 	@GetMapping("/packet")
 	@ResponseBody
-	public String getPacket(@RequestParam String from, 
+	public String getPacket(
+			@RequestParam String dnsFrom,
+			@RequestParam String dnsTo,
+			@RequestParam String from, 
 			@RequestParam String to,
 			@RequestParam String delay) {
-		return forwardingService.forward(from, to, delay).toString();
+		return forwardingService.forward(dnsFrom, dnsTo, from, to, delay).toString();
 	}
 
 }

@@ -23,7 +23,7 @@ docker build --no-cache --build-arg build-id=$BUILD_ID -t obrienlabs/$CONTAINER_
 #docker tag $CONTAINER_IMAGE:latest $CONTAINER_IMAGE:latest
 docker tag obrienlabs/$CONTAINER_IMAGE obrienlabs/$CONTAINER_IMAGE:0.0.2
 # dockerhub
-#docker push obrienlabs/$CONTAINER_IMAGE:0.0.2
+docker push obrienlabs/$CONTAINER_IMAGE:0.0.2
 # locally
 CONTAINER_IMAGE2=magellan-nbi2
 docker stop $CONTAINER_IMAGE
@@ -45,5 +45,5 @@ docker run --name $CONTAINER_IMAGE2 \
 
 cd ../../src/docker
 
-echo "http://127.0.0.1:8888/nbi/forward/packet?from=8889&to=8888&delay=1"
+echo "http://127.0.0.1:8888/nbi/forward/packet?dnsFrom=host.docker.internal&dnsTo=host.docker.internal&from=8889&to=8888&delay=1"
 
