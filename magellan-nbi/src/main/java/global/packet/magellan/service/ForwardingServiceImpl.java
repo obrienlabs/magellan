@@ -11,6 +11,13 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+/**
+ * 20210926
+ * Stats
+ * - 2 3610 MacMini on 1g - 2 vCores sat, 65/sec
+ * @author michaelobrien
+ *
+ */
 @Service
 public class ForwardingServiceImpl implements ForwardingService {
 
