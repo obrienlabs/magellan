@@ -3,6 +3,7 @@
 # source from http://jira.obrienlabs.cloud/browse/MAGELLAN-1
 # https://github.com/obrienlabs/magellan
 # Michael O'Brien
+# docker login with token before running - to push
 
 BUILD_ID=10001
 BUILD_DIR=builds
@@ -21,9 +22,9 @@ cp startService.sh $TARGET_DIR
 cd $TARGET_DIR
 docker build --no-cache --build-arg build-id=$BUILD_ID -t obrienlabs/$CONTAINER_IMAGE -f DockerFile .
 #docker tag $CONTAINER_IMAGE:latest $CONTAINER_IMAGE:latest
-docker tag obrienlabs/$CONTAINER_IMAGE obrienlabs/$CONTAINER_IMAGE:0.0.2
+docker tag obrienlabs/$CONTAINER_IMAGE obrienlabs/$CONTAINER_IMAGE:0.0.2-arm
 # dockerhub
-docker push obrienlabs/$CONTAINER_IMAGE:0.0.2
+docker push obrienlabs/$CONTAINER_IMAGE:0.0.2-arm
 # locally
 CONTAINER_IMAGE2=magellan-nbi2
 docker stop $CONTAINER_IMAGE
@@ -36,12 +37,12 @@ docker run --name $CONTAINER_IMAGE \
     -d -p 8888:8080 \
     -e os.environment.configuration.dir=/ \
     -e os.environment.ecosystem=sbx \
-    obrienlabs/$CONTAINER_IMAGE:0.0.2
+    obrienlabs/$CONTAINER_IMAGE:0.0.2-arm
 docker run --name $CONTAINER_IMAGE2 \
     -d -p 8889:8080 \
     -e os.environment.configuration.dir=/ \
     -e os.environment.ecosystem=sbx \
-    obrienlabs/$CONTAINER_IMAGE:0.0.2
+    obrienlabs/$CONTAINER_IMAGE:0.0.2-arm
 
 cd ../../src/docker
 
