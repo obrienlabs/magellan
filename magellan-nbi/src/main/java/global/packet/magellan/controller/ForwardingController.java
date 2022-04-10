@@ -44,5 +44,13 @@ public class ForwardingController {
 			@RequestParam String delay) {
 		return forwardingService.forward(dnsFrom, dnsTo, from, to, delay).toString();
 	}
+	
+	@GetMapping("/reset")
+	@ResponseBody
+	public String getReset() {
+		return forwardingService.reset();
+	}
+	
+		
 
 }

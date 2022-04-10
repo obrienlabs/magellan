@@ -22,9 +22,9 @@ cp startService.sh $TARGET_DIR
 cd $TARGET_DIR
 docker build --no-cache --build-arg build-id=$BUILD_ID -t obrienlabs/$CONTAINER_IMAGE -f DockerFile .
 #docker tag $CONTAINER_IMAGE:latest $CONTAINER_IMAGE:latest
-docker tag obrienlabs/$CONTAINER_IMAGE obrienlabs/$CONTAINER_IMAGE:0.0.2-arm
+docker tag obrienlabs/$CONTAINER_IMAGE obrienlabs/$CONTAINER_IMAGE:0.0.3-arm
 # dockerhub
-docker push obrienlabs/$CONTAINER_IMAGE:0.0.2-arm
+docker push obrienlabs/$CONTAINER_IMAGE:0.0.3-arm
 # locally
 CONTAINER_IMAGE2=magellan-nbi2
 docker stop $CONTAINER_IMAGE
@@ -37,12 +37,12 @@ docker run --name $CONTAINER_IMAGE \
     -d -p 8888:8080 \
     -e os.environment.configuration.dir=/ \
     -e os.environment.ecosystem=sbx \
-    obrienlabs/$CONTAINER_IMAGE:0.0.2-arm
+    obrienlabs/$CONTAINER_IMAGE:0.0.3-arm
 docker run --name $CONTAINER_IMAGE2 \
     -d -p 8889:8080 \
     -e os.environment.configuration.dir=/ \
     -e os.environment.ecosystem=sbx \
-    obrienlabs/$CONTAINER_IMAGE:0.0.2-arm
+    obrienlabs/$CONTAINER_IMAGE:0.0.3-arm
 
 cd ../../src/docker
 
