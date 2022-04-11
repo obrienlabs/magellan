@@ -22,9 +22,9 @@ cp startService.sh $TARGET_DIR
 cd $TARGET_DIR
 docker build --no-cache --build-arg build-id=$BUILD_ID -t obrienlabs/$CONTAINER_IMAGE -f DockerFile .
 #docker tag $CONTAINER_IMAGE:latest $CONTAINER_IMAGE:latest
-docker tag obrienlabs/$CONTAINER_IMAGE obrienlabs/$CONTAINER_IMAGE:0.0.3-arm
+docker tag obrienlabs/$CONTAINER_IMAGE obrienlabs/$CONTAINER_IMAGE:0.0.3-ia64
 # dockerhub
-docker push obrienlabs/$CONTAINER_IMAGE:0.0.3-arm
+docker push obrienlabs/$CONTAINER_IMAGE:0.0.3-ia64
 # locally
 CONTAINER_IMAGE2=magellan-nbi2
 docker stop $CONTAINER_IMAGE
@@ -37,14 +37,16 @@ docker run --name $CONTAINER_IMAGE \
     -d -p 8888:8080 \
     -e os.environment.configuration.dir=/ \
     -e os.environment.ecosystem=sbx \
-    obrienlabs/$CONTAINER_IMAGE:0.0.3-arm
+    obrienlabs/$CONTAINER_IMAGE:0.0.3-ia64
 docker run --name $CONTAINER_IMAGE2 \
     -d -p 8889:8080 \
     -e os.environment.configuration.dir=/ \
     -e os.environment.ecosystem=sbx \
-    obrienlabs/$CONTAINER_IMAGE:0.0.3-arm
+    obrienlabs/$CONTAINER_IMAGE:0.0.3-ia64
 
 cd ../../src/docker
 
-echo "http://127.0.0.1:8888/nbi/forward/packet?dnsFrom=host.docker.internal&dnsTo=host.docker.internal&from=8889&to=8888&delay=1"
+echo "http://127.0.0.1:8888/nbi/forward/packet?dnsFrom=host.docker.internal&dnsTo=host.docker.internal&from=8889&to=8888&delay=1000"
+echo "http://127.0.0.1:8888/nbi/forward/reset"
+echo "http://127.0.0.1:8889/nbi/forward/reset"
 
