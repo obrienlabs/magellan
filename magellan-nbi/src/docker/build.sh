@@ -5,8 +5,8 @@
 # Michael O'Brien
 # docker login with token before running - to push
 
-TAG=0.0.3-ia64
-#TAG=0.0.3-arm
+#TAG=0.0.3-ia64
+TAG=0.0.3-arm
 
 BUILD_ID=10001
 BUILD_DIR=builds
@@ -28,6 +28,8 @@ docker tag $CONTAINER_IMAGE:latest $CONTAINER_IMAGE:latest
 docker tag obrienlabs/$CONTAINER_IMAGE obrienlabs/$CONTAINER_IMAGE:$TAG
 # dockerhub
 docker push obrienlabs/$CONTAINER_IMAGE:$TAG
+
+
 # locally
 CONTAINER_IMAGE2=magellan-nbi2
 docker stop $CONTAINER_IMAGE
@@ -47,7 +49,10 @@ docker run --name $CONTAINER_IMAGE2 \
     -e os.environment.ecosystem=sbx \
     obrienlabs/$CONTAINER_IMAGE:$TAG
 
+
 cd ../../src/docker
 
-echo "http://127.0.0.1:8888/nbi/forward/packet?dnsFrom=host.docker.internal&dnsTo=host.docker.internal&from=8889&to=8888&delay=1"
+echo "http://127.0.0.1:8888/nbi/forward/packet?dnsFrom=host.docker.internal&dnsTo=host.docker.internal&from=8889&to=8888&delay=1000"
+echo "http://127.0.0.1:8888/nbi/forward/reset"
+echo "http://127.0.0.1:8889/nbi/forward/reset"
 
