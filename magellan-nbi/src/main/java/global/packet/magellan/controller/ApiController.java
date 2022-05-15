@@ -1,6 +1,7 @@
 package global.packet.magellan.controller;
 
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -23,6 +24,8 @@ public class ApiController {
 	private static final CharSequence PASS = "PASS";
 	private static final CharSequence FAIL = "FAIL";
 	
+	static Logger logger = Logger.getLogger(ApiController.class.getName());
+	
 	@Autowired
 	ApplicationServiceLocal applicationService;
     
@@ -38,7 +41,7 @@ public class ApiController {
     		request.getServerName();
      	Api api = new Api(counter.incrementAndGet(), message);
      	
-    	System.out.println(counter + " " + this.getClass().getCanonicalName() + " remoteAddr: " +
+    	logger.info(counter + " " + this.getClass().getCanonicalName() + " remoteAddr: " +
         	request.getRemoteAddr() + " localAddr: " + 
     		request.getLocalAddr() + " remoteHost: " +
         	request.getRemoteHost() + " serverName: " + 
@@ -59,16 +62,12 @@ public class ApiController {
     		request.getLocalAddr() + " remoteHost: " +
         	request.getRemoteHost() + " serverName: " + 
     		request.getServerName();
+    	// + " requestedSessionId: " + 
+    	//request.getRequestedSessionId() + " X-FORWARDED-FOR: " +
+		//request.getHeader("X-FORWARDED-FOR"));
      	Api api = new Api(counter.incrementAndGet(), message);
      	
-    	System.out.println(counter + " " + this.getClass().getCanonicalName() + " remoteAddr: " +
-        	request.getRemoteAddr() + " localAddr: " + 
-    		request.getLocalAddr() + " remoteHost: " +
-        	request.getRemoteHost() + " serverName: " + 
-    		request.getServerName());// + " requestedSessionId: " + 
-        	//request.getRequestedSessionId() + " X-FORWARDED-FOR: " +
-    		//request.getHeader("X-FORWARDED-FOR"));
-
+     	logger.info(message);
     	return api;
     } 
     

@@ -6,6 +6,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
+import java.util.logging.Logger;
 
 import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.web.client.RestTemplate;
@@ -13,6 +14,8 @@ import org.springframework.web.client.RestTemplate;
 import global.packet.magellan.model.jpa.Record;
 
 public class RestClient {
+	
+	static Logger logger = Logger.getLogger(RestClient.class.getName());
 	
 	// my last rollerblade before breaking my shoulder in 2021 after forgetting my flat feet inserts after 30y
     private static final String URL_CREATE_RECORD =
@@ -28,7 +31,7 @@ public class RestClient {
         long time = System.currentTimeMillis();
         Record record = restTemplate.getForObject(URL_CREATE_RECORD, Record.class);
         long end = System.currentTimeMillis() - time;
-        System.out.println(end + "ms Record: " + record.getSendSeq());
+        logger.info(end + "ms Record: " + record.getSendSeq());
         ctx.close();
 	}
 
@@ -44,7 +47,7 @@ public class RestClient {
 			HttpResponse<String> response =
 				httpClient.send(request, BodyHandlers.ofString());
 			String body = response.body();
-			System.out.println("Response: " + body);
+			logger.info("Response: " + body);
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		} catch (InterruptedException ie) {

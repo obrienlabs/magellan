@@ -8,9 +8,11 @@ import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.logging.Logger;
 
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+
 
 /**
  * 20210926
@@ -30,6 +32,10 @@ public class ForwardingServiceImpl implements ForwardingService {
 	private AtomicLong counter = new AtomicLong(1);
 	private HttpClient httpClient = HttpClient.newBuilder().build();
 	//private static boolean stopForwarding = false;
+	
+	
+	static Logger logger = Logger.getLogger(ForwardingServiceImpl.class.getName());
+	
 	private Thread thread;
 	private AtomicBoolean running = new AtomicBoolean(false);
 	private AtomicBoolean stopped = new AtomicBoolean(true);	
@@ -47,12 +53,12 @@ public class ForwardingServiceImpl implements ForwardingService {
 		if(running.get()) {
 			running.set(false);
 			stopped.set(true);
-			System.out.println("Stopping thread");
+			logger.info("Stopping thread");
 			//thread.interrupt();
 		} else {
 			running.set(true);
 			stopped.set(false);
-			System.out.println("resuming thread on next request");
+			logger.info("resuming thread on next request");
 		}
 		return ret;
 	}
@@ -88,7 +94,7 @@ public class ForwardingServiceImpl implements ForwardingService {
 				"&from=" + portTo + 
 				"&to=" + portFrom + 
 				"&delay=" + delay;
-			System.out.println("Request: " + url);
+			logger.info("Request: " + url);
 			HttpRequest request = HttpRequest.newBuilder()
 				.uri(URI.create(url))
 				.GET()
@@ -98,14 +104,14 @@ public class ForwardingServiceImpl implements ForwardingService {
 				HttpResponse<String> response =
 						httpClient.send(request, BodyHandlers.ofString());
 				String body = response.body();
-				System.out.println("Response: " + body);
+				logger.info("Response: " + body);
 			} catch (IOException ioe) {
 				ioe.printStackTrace();
 			} catch (InterruptedException ie) {
 				ie.printStackTrace();
 			}
 		} else {
-			System.out.println("Skipping reflection");
+			logger.info("Skipping reflection");
 		}
 	}
 }

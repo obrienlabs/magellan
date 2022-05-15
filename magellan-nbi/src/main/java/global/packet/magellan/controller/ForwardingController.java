@@ -1,5 +1,7 @@
 package global.packet.magellan.controller;
 
+import java.util.logging.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +18,8 @@ import global.packet.magellan.service.ForwardingService;
 @RestController
 @RequestMapping("/forward")
 public class ForwardingController {
+	
+	static Logger logger = Logger.getLogger(ForwardingController.class.getName());
 	
 	@Autowired
 	ForwardingService forwardingService;
