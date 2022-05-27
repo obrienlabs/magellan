@@ -6,6 +6,7 @@ ARG USERVICE_HOME=/opt/app/
 # Build up the deployment folder structure
 RUN mkdir -p $USERVICE_HOME
 
+EXPOSE 8080
 ADD magellan-nbi/target/magellan-nbi-*.jar $USERVICE_HOME/ROOT.jar
 #ADD startService.sh $USERVICE_HOME/bin/
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/opt/app/ROOT.jar"]
