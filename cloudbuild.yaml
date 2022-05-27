@@ -21,7 +21,7 @@ steps:
     args: ["package", "-Dmaven.test.skip=true -DskipTests=true"]
   - name: gcr.io/cloud-builders/docker
   # gcr.io/
-    args: ["build", "-t", "northamerica-northeast1-docker.pkg.dev/$PROJECT_ID/traffic-generation/traffic-generation", "--build-arg=JAR_FILE=magellan-nbi/target/magellan-nbi-0.0.2-SNAPSHOT.jar", "."]
+    args: ["build", "-t", "northamerica-northeast1-docker.pkg.dev/$PROJECT_ID/traffic-generation/traffic-generation", "--build-arg=JAR_FILE=magellan-nbi/target/magellan-nbi-0.0.3-SNAPSHOT.jar", "."]
     #args: ['build', '-t', 'LOCATION-docker.pkg.dev/$PROJECT_ID/traffic-generation/magellan-nbi', '.' ]
 images: 
  # ["gcr.io/$PROJECT_ID/magellan-nbi:latest"]

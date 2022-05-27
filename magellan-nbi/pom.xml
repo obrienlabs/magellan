@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>global.packet.magellan</groupId>
 	<artifactId>magellan-nbi</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>0.0.3-SNAPSHOT</version>
 	<name>magellan-nbi</name>
 	<description>magellan-nbi project</description>
 

@@ -56,5 +56,20 @@ public class ForwardingController {
 	}
 	
 		
+	   // curl -X GET "http://127.0.0.1:8080/nbi/forward/traffic?dns=127.0.0.1&to=8080&delay=1000&iterations=20"
+    //curl -X GET  "http://127.0.0.1:8080/nbi/forward/reset"
+    @GetMapping("/traffic")
+	@ResponseBody
+	public String getTraffic(
+			//@RequestParam String dnsFrom,
+			@RequestParam String dns,
+			//@RequestParam String from, 
+			@RequestParam String to,
+			@RequestParam String delay,
+            @RequestParam String iterations) {
+		return forwardingService.traffic(dns, to, delay, iterations).toString();
+	}
+		
+
 
 }

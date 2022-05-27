@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>global.packet.magellan</groupId>
 	<artifactId>magellan-root</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>0.0.3-SNAPSHOT</version>
 	<name>magellan</name>
 	<description>magellan project</description>
     <packaging>pom</packaging>

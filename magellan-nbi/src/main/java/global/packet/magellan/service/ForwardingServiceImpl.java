@@ -32,6 +32,7 @@ public class ForwardingServiceImpl implements ForwardingService {
 	private AtomicLong counter = new AtomicLong(1);
 	private HttpClient httpClient = HttpClient.newBuilder().build();
 	//private static boolean stopForwarding = false;
+    private AtomicLong iterations = new AtomicLong(100);
 	
 	
 	static Logger logger = Logger.getLogger(ForwardingServiceImpl.class.getName());
@@ -40,12 +41,15 @@ public class ForwardingServiceImpl implements ForwardingService {
 	private AtomicBoolean running = new AtomicBoolean(false);
 	private AtomicBoolean stopped = new AtomicBoolean(true);	
 
+    private static final String PROTOCOL = "http";
+
 //  private static final String URL_RETURN = "http://host.docker.internal:8888";
 //  private static final String URL_RETURN = "http://host.docker.internal:";//8080/nbi/forward/packet";
-	private static final String URL_POSTFIX = "/nbi/forward/packet";
-
+	private static final String URL_POSTFIX_REFLECTOR = "/nbi/forward/packet";
+	private static final String URL_POSTFIX_TRAFFIC = "/nbi/forward/traffic";
+    private static final String URL_POSTFIX_API = "/nbi/api";
 	private Runnable runnable = () -> { sendMessage(); };
-  
+    private Runnable runnableTraffic = () -> { sendMessage(false); };
   
 	@Override
 	public String reset() {
@@ -84,34 +88,106 @@ public class ForwardingServiceImpl implements ForwardingService {
 		return Long.toString(counter.addAndGet(1));
 	}
 
-	private void sendMessage() {
-		if(!stopped.get()) {
-			String url = "http://" +
-				dnsTo + 
-				":" + portTo + URL_POSTFIX + 
+    private void sendMessage() {
+        sendMessage(true);
+    }
+
+    private void sendMessage(boolean isReflector) {
+        String url = PROTOCOL + "://";
+        if(isReflector) {
+            url = url + dnsTo + 
+				":" + portTo + URL_POSTFIX_REFLECTOR + 
 				"?dnsFrom=" + dnsTo + 
 				"&dnsTo=" + dnsFrom + 
 				"&from=" + portTo + 
 				"&to=" + portFrom + 
 				"&delay=" + delay;
-			logger.info("Request: " + url);
-			HttpRequest request = HttpRequest.newBuilder()
-				.uri(URI.create(url))
-				.GET()
-				.build();
+        } else {
+            url = url + dnsTo + 
+            ":" + portTo + URL_POSTFIX_API + 
+            "?dns=" + dnsTo + 
+            "&to=" + portTo + 
+            "&delay=" + delay + 
+            "&iterations=" + iterations.get();
+        }
 
-			try {
-				HttpResponse<String> response =
+        sendMessage(url, isReflector);
+    }
+
+	private void sendMessage(String url, boolean isReflector) {
+        if(isReflector) {
+    		if(!stopped.get()) {
+	    		logger.info("Request reflection: " + url);
+		    	HttpRequest request = HttpRequest.newBuilder()
+			    	.uri(URI.create(url))
+				    .GET()
+				    .build();
+		    	try {
+			    	HttpResponse<String> response =
 						httpClient.send(request, BodyHandlers.ofString());
-				String body = response.body();
-				logger.info("Response: " + body);
-			} catch (IOException ioe) {
-				ioe.printStackTrace();
-			} catch (InterruptedException ie) {
-				ie.printStackTrace();
-			}
-		} else {
-			logger.info("Skipping reflection");
-		}
+				    String body = response.body();
+				    logger.info("Response: " + body);
+			    } catch (IOException ioe) {
+			    	ioe.printStackTrace();
+			    } catch (InterruptedException ie) {
+				    ie.printStackTrace();
+		    	}
+		    } else {
+			    logger.info("Skipping reflection");
+ 
+	    	}
+        } else {
+            if(!stopped.get()) {
+            // traffic generation
+            long iters = iterations.get();
+            //IntStream.range(0, iters).forEach()
+            for(long i=0; i<iterations.get(); i++) {
+                try { 
+                    Thread.sleep(Long.parseLong(delay));
+                    } catch (Exception e) {};
+        
+            logger.info("traffic generation: " + i + " of " + iterations.get() + " : " + url);
+            HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .GET()
+                .build();
+            try {
+                HttpResponse<String> response =
+                    httpClient.send(request, BodyHandlers.ofString());
+                String body = response.body();
+                logger.info("Response: " + body);
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+            } catch (InterruptedException ie) {
+                ie.printStackTrace();
+            }
+        }
+
+        }
+    }
 	}
+
+
+    @Override
+	public String traffic(String dns, String to, String delay, String iterationsString) {
+		try { 
+			Thread.sleep(Long.parseLong(delay));
+			} catch (Exception e) {};
+			
+		portTo = to;
+		this.delay = delay;
+		this.dnsTo = dns;
+        this.iterations = new AtomicLong(Long.parseLong(iterationsString));
+        running.set(true);
+        stopped.set(false);
+		//Runnable aRunnable = runnable;
+		// 1 thread at a time
+		//if(!stopped.get())
+			thread = new Thread(runnableTraffic);
+			thread.start();	
+			//running.set(true);
+			//stopped.set(false);		
+		return Long.toString(counter.addAndGet(1));
+	}
+
 }
