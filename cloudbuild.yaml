@@ -28,9 +28,5 @@ images:
   ["northamerica-northeast1-docker.pkg.dev/$PROJECT_ID/traffic-generation/traffic-generation:latest"]
  
 
-  #ERROR: failed to find one or more images after execution of build steps: ["gcr.io/innovapost-351413/magellan-nbi:latest"]
-#options:
-#  logging: CLOUD_LOGGING_ONLY
-# [END cloudbuild_maven]
 
 
