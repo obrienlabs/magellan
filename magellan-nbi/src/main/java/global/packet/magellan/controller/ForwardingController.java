@@ -45,8 +45,9 @@ public class ForwardingController {
 			@RequestParam String dnsTo,
 			@RequestParam String from, 
 			@RequestParam String to,
-			@RequestParam String delay) {
-		return forwardingService.forward(dnsFrom, dnsTo, from, to, delay).toString();
+			@RequestParam String delay,
+            @RequestParam String region) {
+		return forwardingService.forward(dnsFrom, dnsTo, from, to, delay, region).toString();
 	}
 	
 	@GetMapping("/reset")
@@ -55,21 +56,23 @@ public class ForwardingController {
 		return forwardingService.reset();
 	}
 	
-		
-	   // curl -X GET "http://127.0.0.1:8080/nbi/forward/traffic?dns=127.0.0.1&to=8080&delay=1000&iterations=20"
+    // curl -X GET "http://127.0.0.1:8080/nbi/forward/traffic?dns=127.0.0.1&to=8080&delay=1000&iterations=20"
     //curl -X GET  "http://127.0.0.1:8080/nbi/forward/reset"
     @GetMapping("/traffic")
 	@ResponseBody
 	public String getTraffic(
+        @RequestParam String useCaseNumber,
+        @RequestParam String client,
+        @RequestParam String chaosPercentage,
 			//@RequestParam String dnsFrom,
 			@RequestParam String dns,
 			//@RequestParam String from, 
 			@RequestParam String to,
 			@RequestParam String delay,
-            @RequestParam String iterations) {
-		return forwardingService.traffic(dns, to, delay, iterations).toString();
+            @RequestParam String iterations,
+            @RequestParam String region) {
+		return forwardingService.traffic(useCaseNumber, client, chaosPercentage, dns, to, delay, iterations, region).toString();
 	}
 		
-
 
 }
