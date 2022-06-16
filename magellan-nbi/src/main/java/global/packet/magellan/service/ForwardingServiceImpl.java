@@ -155,7 +155,8 @@ public class ForwardingServiceImpl implements ForwardingService {
         } else {
             url = url + dnsTo + 
             ":" + portTo + 
-            URL_POSTFIX_TRAFFIC + //;// + //URL_POSTFIX_API + 
+            //URL_POSTFIX_TRAFFIC + //;// + //URL_POSTFIX_API + 
+            URL_POSTFIX_API + 
             "?usecasename=uc" + useCaseNumber +
             "&client=" + client;
  
