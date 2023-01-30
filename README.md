@@ -29,7 +29,7 @@ source: https://traffic-generation-source-vyua7q27tq-nn.a.run.app/nbi/api
 target: https://traffic-generation-target-vyua7q27tq-pd.a.run.app/nbi/api
 
 Traffic gen API: 
-```
+
 https://traffic-generation-source-vyua7q27tq-nn.a.run.app/nbi/swagger-ui.html#/forwarding-controller/getPacketUsingGET
 
 source
@@ -53,10 +53,16 @@ CICD
 Currently there is a CSR trigger on cloud build to run the maven build and build/push the container into artifact registry.  The cloud run builds are static but can be switched to trigger.  I expect we can add a trigger on the cloud deploy job once I have moved the container to GKE.
 
 To view - open swagger or use direct curls or the browser
+
 https://traffic-generation-source-vyua7q27tq-nn.a.run.app/nbi/swagger-ui.html#/forwarding-controller/getTrafficUsingGET
+
 enter for example 120k 1ms traffic https://traffic-generation-source-vyua7q27tq-nn.a.run.app/nbi/forward/traffic?delay=1&dns=traffic-generation-target-vyua7q27tq-pd.a.run.app&iterations=120000&to=80 
 
-view the metrics on both source and target.  These requests have no real load on the backend (db marshall/unmarshall as part of orm) therefore 1k requests/sec only scales a smaller than normal 1g/1vCore container up to 3 instances.  Once we get backend load scaling should occur with over 1k req/sec traffic
+view the metrics on both source and target. 
+
+These requests have no real load on the backend (db marshall/unmarshall as part of orm) therefore 1k requests/sec only scales a smaller than normal 1g/1vCore container up to 3 instances.  
+
+Once we get backend load scaling should occur with over 1k req/sec traffic
 
 https://console.cloud.google.com/run/detail/northamerica-northeast1/traffic-generation-source/metrics
 
