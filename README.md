@@ -1,6 +1,10 @@
 # magellan
 Magellan - world packet navigation
 
+# Swagger API landing page
+```
+http://localhost:8080/nbi/swagger-ui.html
+```
 # Docker runs
 ```
 source
