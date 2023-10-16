@@ -25,7 +25,25 @@
         <org.mapstruct.version>1.3.0.Final</org.mapstruct.version>
 	</properties>
 
+
+<dependencyManagement>
+  <dependencies>
+    <dependency>
+      <groupId>com.google.cloud</groupId>
+      <artifactId>libraries-bom</artifactId>
+      <version>26.24.0</version>
+      <type>pom</type>
+      <scope>import</scope>
+    </dependency>
+  </dependencies>
+</dependencyManagement>
+
 	<dependencies>
+	<!-- https://cloud.google.com/docs/authentication/client-libraries#java -->
+	  <dependency>
+    <groupId>com.google.cloud</groupId>
+    <artifactId>google-cloud-storage</artifactId>
+  </dependency>
 	   <!-- mapstruct -->
     <dependency>
         <groupId>org.mapstruct</groupId>
