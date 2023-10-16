@@ -36,5 +36,10 @@ public class ApplicationServiceController {
 	public String getHealth() {
 		return applicationService.health().toString();
 	}
+	
+	@GetMapping("/gcp")
+	public String getGCP() {
+		return applicationService.gcp().toString();
+	}
 
 }

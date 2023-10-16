@@ -12,6 +12,11 @@ public class ApplicationService implements ApplicationServiceLocal {
 	}
 
 	@Override
+	public String gcp() {
+		return "gcp";
+	}
+	
+	@Override
 	public String forward() {
 		// TODO Auto-generated method stub
 		return "OK";
