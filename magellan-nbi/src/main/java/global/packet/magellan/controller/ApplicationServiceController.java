@@ -1,5 +1,7 @@
 package global.packet.magellan.controller;
 
+import java.util.logging.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +16,7 @@ import global.packet.magellan.service.ApplicationService;
 @RestController
 @RequestMapping("/app")
 public class ApplicationServiceController {
+	static Logger logger = Logger.getLogger(ApplicationServiceController.class.getName());
 	
 	@Autowired
 	ApplicationService applicationService;
@@ -37,9 +40,15 @@ public class ApplicationServiceController {
 		return applicationService.health().toString();
 	}
 	
-	@GetMapping("/gcp")
-	public String getGCP() {
-		return applicationService.gcp().toString();
+	@GetMapping("/gcpViaFile")
+	public String getGCPViaFile() {
+		return applicationService.gcpViaFile().toString();
+		
+	}
+	
+	@GetMapping("/gcpViaEnv")
+	public String getGCPViaEnv() {
+		return applicationService.gcpViaEnv().toString();
 	}
 
 }

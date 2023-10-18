@@ -38,12 +38,19 @@
   </dependencies>
 </dependencyManagement>
 
+
 	<dependencies>
 	<!-- https://cloud.google.com/docs/authentication/client-libraries#java -->
 	  <dependency>
     <groupId>com.google.cloud</groupId>
     <artifactId>google-cloud-storage</artifactId>
   </dependency>
+  
+  <!-- https://github.com/googleapis/java-bigquery/blob/main/samples/snippets/pom.xml#L58C1-L61C18 -->
+      <dependency>
+      <groupId>com.google.cloud</groupId>
+      <artifactId>google-cloud-bigquery</artifactId>
+    </dependency>
 	   <!-- mapstruct -->
     <dependency>
         <groupId>org.mapstruct</groupId>
