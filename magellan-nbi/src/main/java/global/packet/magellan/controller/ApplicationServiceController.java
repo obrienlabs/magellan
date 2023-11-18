@@ -40,6 +40,12 @@ public class ApplicationServiceController {
 		return applicationService.health().toString();
 	}
 	
+	@GetMapping("/event")
+	@RequestMapping("/event")
+	public String getEvent() {
+		return applicationService.event().toString();
+	}
+	
 	@GetMapping("/gcpViaFile")
 	public String getGCPViaFile() {
 		return applicationService.gcpViaFile().toString();

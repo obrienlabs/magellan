@@ -19,7 +19,7 @@ public class RestClient {
 	
 	// my last rollerblade before breaking my shoulder in 2021 after forgetting my flat feet inserts after 30y
     private static final String URL_CREATE_RECORD =
-            "http://biometric.elasticbeanstalk.com/FrontController?action=latest&u=202108025";
+            "http://biometric.elasticbeanstalk.com/FrontController?action=activeid";
     
 	public void post() {
         GenericXmlApplicationContext ctx = new GenericXmlApplicationContext();
@@ -58,7 +58,7 @@ public class RestClient {
 	public static void main(String[] args) {
 
 		RestClient client = new RestClient();
-		client.post();
+		//client.post();
 		client.httpClient();
 	}
 

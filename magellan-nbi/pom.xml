@@ -51,6 +51,14 @@
       <groupId>com.google.cloud</groupId>
       <artifactId>google-cloud-bigquery</artifactId>
     </dependency>
+    
+    <dependency>
+         <groupId>com.google.cloud</groupId>
+         <artifactId>google-cloud-discoveryengine</artifactId>
+         <version>0.23.0</version>
+        </dependency>
+    
+    
 	   <!-- mapstruct -->
     <dependency>
         <groupId>org.mapstruct</groupId>
