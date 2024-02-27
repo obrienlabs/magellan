@@ -129,3 +129,5 @@ open up the firewall to instances not just tags
 
   
 ```
+## Swagger
+![image](https://github.com/obrienlabs/magellan/assets/24765473/04c60ee8-d1b6-497c-af10-07dab6d14ac7)
