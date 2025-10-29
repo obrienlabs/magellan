@@ -1,14 +1,14 @@
 # magellan
 Magellan - world packet navigation
 
-# Swagger API landing page
-```
-http://localhost:8080/nbi/swagger-ui.html
-```
 # Docker runs
 ```
 source
 docker run -d -p 8888:8080 --name magellan obrienlabs/magellan-nbi:0.0.3-arm
+```
+# Swagger API landing page
+```
+http://localhost:8888/nbi/swagger-ui.html
 ```
 
 ## API
