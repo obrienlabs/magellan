@@ -5,8 +5,8 @@
 # Michael O'Brien
 # docker login with token before running - to push
 
-#TAG=0.0.3-ia64
-TAG=0.0.3-arm
+TAG=0.0.4-ia64
+#TAG=0.0.3-arm
 
 BUILD_ID=10001
 BUILD_DIR=builds
@@ -15,6 +15,9 @@ TARGET_DIR=../../$BUILD_DIR/$BUILD_ID
 mkdir $TARGET_DIR
 CONTAINER_IMAGE=magellan-nbi
 
+
+# authorize artifact registry
+#gcloud auth configure-docker us-east4-docker.pkg.dev
 cd ../../
 mvn clean install -U -DskipTests=true
 cd src/docker
@@ -28,6 +31,9 @@ docker tag $CONTAINER_IMAGE:latest $CONTAINER_IMAGE:latest
 docker tag obrienlabs/$CONTAINER_IMAGE obrienlabs/$CONTAINER_IMAGE:$TAG
 # dockerhub
 docker push obrienlabs/$CONTAINER_IMAGE:$TAG
+# Artifact Registry
+#docker tag obrienlabs/$CONTAINER_IMAGE:$TAG us-east4-docker.pkg.dev/biometric-backend-gke-man-old/magellan-nbi/$CONTAINER_IMAGE:$TAG
+#docker push us-east4-docker.pkg.dev/biometric-backend-gke-man-old/magellan-nbi/$CONTAINER_IMAGE:$TAG
 
 
 # locally
